@@ -75,6 +75,7 @@ void main()
 	while (cur!=NULL)
 	{
 		printf("%d	", cur->age);
+		cur = cur->next;
 		
 	}
 }
