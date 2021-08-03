@@ -1,0 +1,80 @@
+typedef struct Node {
+	int age;
+	struct Node* next;
+};
+Node* head;
+
+void add1(Node *root , int age)
+{
+	Node* node = (Node*)malloc(sizeof(Node));
+	node->next = root->next;
+	root->next = node;
+	node->age = age;
+
+}
+void del(Node *root)
+{
+	
+	Node* cur = root->next;
+	if (cur!= NULL) {
+		root->next = cur->next;
+		free(cur);
+	}
+
+}
+void add2(Node* root, int age)
+{
+	Node* node = (Node*)malloc(sizeof(Node));
+	node->age = age;
+
+	if (root->next == NULL)
+	{
+		add1(root, age);
+	}
+	else
+	{
+		Node* cur=root->next;
+		while (cur->next != NULL)
+		{
+			cur = cur->next;
+		}
+		cur->next = node;
+		node->next = NULL;
+
+	}
+}
+void main()
+{
+	head = (Node*)malloc(sizeof(Node));
+	head->next = NULL;
+
+	int stop = 1;
+	while (stop)
+	{
+		printf("아래키 추가 위키 종료\n");
+		int key = 0;
+		key = _getch();
+		key = _getch();
+		if (key == 80) //아래 추가
+		{
+			printf("추가할 수 입력\n");
+			int a=0;
+			scanf_s("%d", &a);
+			add2(head, a);
+		}
+		else if (key == 72) //위 종료
+		{
+			stop = 0;
+		}
+		else if (key == 77)//오른쪽
+		{
+			del(head);
+		}
+	}
+	Node* cur = head->next;
+	while (cur!=NULL)
+	{
+		printf("%d	", cur->age);
+		cur = cur->next;
+	}
+}
